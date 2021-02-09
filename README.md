@@ -1,8 +1,12 @@
 # Python Flask Hello
 
-Small python server that reads user cookie named `name` and greets the user.
+Small python server that reads header `name` and returns JSON response with `name` in it.
 
 ```bash
+# Run Unit Tests
+
+python -m pytest -v    
+
 # Run
 
 python app/main.py
