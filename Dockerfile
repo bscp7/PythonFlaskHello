@@ -4,9 +4,10 @@ ARG USERNAME=app
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-RUN groupmod --gid $USER_GID $USERNAME \
-    && usermod --uid $USER_UID --gid $USER_GID $USERNAME \
-    && chown -R $USER_UID:$USER_GID /home/$USERNAME
+RUN addgroup -g $USER_GID $USERNAME \
+    && adduser -D -u $USER_UID -G $USERNAME $USERNAME \
+    && mkdir -p /home/$USERNAME \
+    && chown -R $USERNAME:$USERNAME /home/$USERNAME
 
 USER $USERNAME
 
@@ -16,10 +17,11 @@ RUN whoami
 
 COPY /app/requirements.txt .
 
-RUN pip --disable-pip-version-check install --upgrade pip && pip --disable-pip-version-check install -r /app/requirements.txt
+RUN pip --disable-pip-version-check install --upgrade pip && pip --disable-pip-version-check install --no-cache-dir -r /app/requirements.txt
 
 ENV PORT 9000
 
 COPY --chown=$USERNAME:$USERNAME app .
 
-CMD gunicorn -b :$PORT main:app
+CMD /home/app/.local/bin/gunicorn -b :$PORT main:app
+
