@@ -1,3 +1,5 @@
+FROM python:3.8-alpine
+
 ARG USERNAME=app
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -8,20 +10,16 @@ RUN groupmod --gid $USER_GID $USERNAME \
 
 USER $USERNAME
 
-FROM python:3.8-alpine
-
 WORKDIR /app
 
 RUN whoami
 
 COPY /app/requirements.txt .
 
-RUN pip --disable-pip-version-check install --upgrade pip
-
-RUN pip --disable-pip-version-check install -r /app/requirements.txt
+RUN pip --disable-pip-version-check install --upgrade pip && pip --disable-pip-version-check install -r /app/requirements.txt
 
 ENV PORT 9000
 
-COPY app .
+COPY --chown=$USERNAME:$USERNAME app .
 
 CMD gunicorn -b :$PORT main:app
