@@ -12,8 +12,8 @@ python -m pytest -v
 python app/main.py
 
 # Test
-curl http://localhost:9000/
-curl http://localhost:9000/ -H "name: Bhavesh"
+curl http://localhost:8080/
+curl http://localhost:8080/ -H "name: Bhavesh"
 
 # Build Docker image
 
@@ -21,5 +21,5 @@ docker build -f Dockerfile -t pythonflaskhello:latest .
 
 # Create Docker container
 
-docker run --rm -p 9000:9000 --name hello pythonflaskhello:latest
+docker run --rm -p 8080:8080 --name hello pythonflaskhello:latest
 ```

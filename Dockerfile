@@ -19,7 +19,7 @@ COPY /app/requirements.txt .
 
 RUN pip --disable-pip-version-check install --upgrade pip && pip --disable-pip-version-check install --no-cache-dir -r /app/requirements.txt
 
-ENV PORT 9000
+ENV PORT 8080
 
 COPY --chown=$USERNAME:$USERNAME app .
 
