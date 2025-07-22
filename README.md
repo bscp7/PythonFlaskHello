@@ -29,3 +29,9 @@ docker run --rm -p 8080:8080 --name hello pythonflaskhello:latest
 ```bash
 oc apply -f .tekton/
 ```
+
+# Troubleshooting
+
+```bash
+oc logs deployment/el-github-listener -c event-listener
+```
