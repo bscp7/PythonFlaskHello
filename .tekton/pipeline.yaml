@@ -4,20 +4,16 @@ metadata:
   name: docker-build-and-deploy-pr
 spec:
   params:
-    - name: IMAGE_NAME
-      type: string
     - name: GIT_REPO
       type: string
     - name: GIT_REVISION
       type: string
+    - name: IMAGE_NAME
+      type: string
+      default: "docker.io/bhaveshscp/python-image"
   workspaces:
     - name: output
   tasks:
-    - name: debug-params
-      image: alpine
-      script: |
-        echo "Repo URL: $(params.gitrepositoryurl)"
-        echo "Revision: $(params.gitrevision)"
     - name: fetch-repository
       taskRef:
         resolver: cluster

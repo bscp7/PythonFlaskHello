@@ -1,0 +1,35 @@
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: docker-build-and-deploy-template
+spec:
+  params:
+  - name: GIT_REVISION
+  - name: GIT_REPO
+  - name: IMAGE_NAME
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: ci-gitops-pipeline-run-
+    spec:
+      params:
+      # TODO: Remove hard coding of variable values
+      - name: GIT_REVISION
+        value: "master"
+      - name: GIT_REPO
+        value: "https://github.com/bscp7/PythonFlaskHello.git"
+      - name: IMAGE_NAME
+        value: "docker.io/bhaveshscp/python-image"
+      pipelineRef:
+        name: docker-build-and-deploy-pr
+      workspaces:
+      - name: output
+        volumeClaimTemplate:
+          spec:
+            accessModes:
+            - ReadWriteOnce
+            resources:
+              requests:
+                storage: 1Gi
