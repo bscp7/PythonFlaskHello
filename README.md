@@ -23,3 +23,9 @@ docker build -f Dockerfile -t pythonflaskhello:latest .
 
 docker run --rm -p 8080:8080 --name hello pythonflaskhello:latest
 ```
+
+# Create CI pipelines
+
+```
+oc apply -f .tekton/
+```
