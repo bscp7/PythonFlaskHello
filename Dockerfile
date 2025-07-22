@@ -12,17 +12,16 @@ USER $USERNAME
 
 WORKDIR /home/$USERNAME
 
-COPY --chown /app/requirements.txt .
+COPY --chown=$USERNAME:$USERNAME /home/app/requirements.txt .
 
-RUN pip --disable-pip-version-check install --upgrade pip && pip --disable-pip-version-check install --no-cache-dir -r /app/requirements.txt
+RUN pip --disable-pip-version-check install --upgrade pip && pip --disable-pip-version-check install --no-cache-dir -r /home/app/requirements.txt
 
 ENV PORT 8080
-
-RUN chmod +x /home/app/.local/bin/gunicorn
 
 RUN chown -R $USER_UID:0 /home/app
 
 COPY --chown=$USERNAME:$USERNAME app .
 
+RUN chmod +x /home/app/.local/bin/gunicorn
 CMD /home/app/.local/bin/gunicorn -b :$PORT main:app
 
