@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: ci-gitops-pipeline-run
+spec:
+  params:
+    - name: IMAGE_NAME
+      value: docker.io/bhaveshscp/python-image
+    - name: GIT_REPO
+      value: 'https://github.com/bscp7/PythonFlaskHello.git'
+    - name: GIT_REVISION
+      value: master
+  pipelineRef:
+    name: docker-build-and-deploy-pr
+  taskRunTemplate:
+    serviceAccountName: pipeline
+  timeouts:
+    pipeline: 1h0m0s
+  workspaces:
+    - name: output
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 1Gi
+  serviceAccountName: pipeline
