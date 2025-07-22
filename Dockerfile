@@ -21,6 +21,10 @@ RUN pip --disable-pip-version-check install --upgrade pip && pip --disable-pip-v
 
 ENV PORT 8080
 
+RUN chmod +x /home/app/.local/bin/gunicorn
+
+RUN chown -R $USER_UID:0 /home/app
+
 COPY --chown=$USERNAME:$USERNAME app .
 
 CMD /home/app/.local/bin/gunicorn -b :$PORT main:app
