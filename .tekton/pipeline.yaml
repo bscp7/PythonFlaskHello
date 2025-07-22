@@ -13,6 +13,11 @@ spec:
   workspaces:
     - name: output
   tasks:
+    - name: debug-params
+      image: alpine
+      script: |
+        echo "Repo URL: $(params.gitrepositoryurl)"
+        echo "Revision: $(params.gitrevision)"
     - name: fetch-repository
       taskRef:
         resolver: cluster
