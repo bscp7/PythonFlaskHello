@@ -1,17 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: "apps/v1"
+kind: "Deployment"
 metadata:
-  name: mywebapp
+  name: "mywebapp"
 spec:
   template:
     spec:
       containers:
-        - name: mywebapp
+        - name: "mywebapp"
           resources:
             limits:
-              memory: "32Mi"
-              cpu: "10m"
+              memory: "128Mi"
+              cpu: "200m"
             requests:
-              memory: "24Mi"
-              cpu: "5m"
-
+              memory: "64Mi"
+              cpu: "100m"
