@@ -6,6 +6,8 @@ resources:
 images:
   - name: mywebapp
     newName: docker.io/bhaveshscp/python-image
-    newTag: sha256:298d0e43dda0b2d121ce904042bbc3de5450285df3fbe60ed712830f7b22b7bf
-patchesStrategicMerge:
-  - resource-limits.yaml
+    newTag: sha256:0869dd410ca711dd8e34009d1495fcef34f0004c178e7f456e602d1513233f6f
+patches:
+  - path: resource-limits.yaml
+    target:
+      kind: Deployment
