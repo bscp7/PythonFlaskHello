@@ -1,19 +1,19 @@
 # Python Flask Hello
 
-Small python server that reads header `name` and returns JSON response with `name` in it.
+Small python server that reads header named `message` and returns JSON response with `message` in it. It also adds memory and cpu spikes that can help us see random usage metrics.
 
 ```bash
 # Run Unit Tests
 
-python -m pytest -v    
+python -m pytest -v
 
 # Run
 
-python app/main.py
+uv run gunicorn -b :8080 app.main:app --reload
 
 # Test
 curl http://localhost:8080/
-curl http://localhost:8080/ -H "name: Bhavesh"
+curl http://localhost:8080/ -H "message: lets ask LLM"
 
 # Build Docker image
 
