@@ -9,8 +9,8 @@ spec:
         - name: "mywebapp"
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "200m"
+              cpu: "10m"
+              memory: "32Mi"
             requests:
-              memory: "64Mi"
-              cpu: "100m"
+              cpu: "5m"
+              memory: "24Mi"
